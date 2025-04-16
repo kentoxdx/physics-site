@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>กรอกชื่อก่อนเข้าเว็บ</title>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background-color: #e0f7f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #d0f8ce;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 2px 2px 10px #a5d6a7;
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+      border-radius: 10px;
+      border: 1px solid #81c784;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #66bb6a;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #43a047;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="nameForm">
+    <h2>กรอกชื่อของคุณ</h2>
+    <input type="text" id="nameInput" placeholder="ชื่อของคุณ" required>
+    <br>
+    <button type="submit">ตกลง</button>
+  </form>
+
+  <!-- ✅ เสียงกดปุ่ม -->
+  <audio id="clickSound" src="sounds/click.mp3" preload="auto"></audio>
+
+  <script>
+    const clickSound = new Audio("sounds/click.mp3"); // โหลดเสียงล่วงหน้า
+  
+    document.getElementById("nameForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+  
+      const name = document.getElementById("nameInput").value;
+      localStorage.setItem("userName", name);
+  
+      // ✅ เล่นเสียง
+      clickSound.currentTime = 0; // เริ่มจากต้นเสมอ
+      clickSound.play().then(() => {
+        // ✅ ถ้าเสียงเล่นสำเร็จ → ไปหน้า index.html
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 300);
+      }).catch((error) => {
+        // ❌ ถ้าเล่นไม่ได้ (เช่นเบราว์เซอร์บล็อก)
+        console.error("เสียงไม่เล่น:", error);
+        window.location.href = "index.html"; // ยังไปต่อได้
+      });
+    });
+  </script>
+  
+
+</body>
+</html>

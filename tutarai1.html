@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สูตรฟิสิกส์อิอิ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #response {
+            margin-top: 20px;
+            font-size: 18px;
+            color: red;
+        }
+
+        #correct {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>บอกสูตรต่างๆในฟิสิกส์</h1>
+        <input type="text" id="userInput" placeholder="กรอกข้อความที่ต้องการ" />
+        <button id="checkButton">ตรวจสอบ</button>
+        <p id="response"></p>
+<img id="responseImage" style="display:none; max-width: 300px; margin-top: 15px;" />
+
+    </div>
+
+    <script>
+        // ข้อความที่ต้องการให้ผู้ใช้กรอก
+        const responses = {
+    "v": "v คือความเร็วในการที่เพิ่มขึ้นเเละลดลงได้จากการหารของ SเเละT",
+    "s": "s คือระยะทางที่สั้นเเละยาวได้ตามผลคูณของ VเเละT",
+    "t": "t คือเวลาที่ใช้ในการเคลื่อนที่จากจุดหนึ่งไปยังอีกจุดหนึ่ง",
+    "v=s/t": "สูตรคำนวณความเร็วคือ V = S / T",
+    "s=v*t": "สูตรคำนวณระยะทางคือ S = V * T",
+    "u": "u คือความเร็วต้น",
+    "a": "a คือความเร่งจากการเคลื่อนที่",
+    "v=u+at": "v=u+at คือ สูตรความเร็วที่โจทย์นั่นไม่บอกระยะทาง(s)",
+    "s=ut+1/2at^2": "s=ut+1/2at^2 คือืสูตรความเร็วในการเคลื่อนที่ที่ไม่บอกความเร็วปลาย(v)",
+    "s=vt-1/1at^2": "s=vt-1/1at^2 คือสูตรความเร็วในการเคลื่อนที่ที่ไม่บอกความเร็วต้น(u)",
+    "s=u+v/2*t": "s=u+v/2*t คือสูตรความเร็วในการเคลื่อนที่ที่ไม่บอกความเร่ง(a)",
+    "v^2=u^2+2as": "v^2=u^2+2as คือสูตรความเร็วการเคลื่อนที่ที่ไม่บอกเวลา(t)"
+
+};
+
+
+        // ค้นหาปุ่มและช่องกรอกข้อความ
+        const button = document.getElementById('checkButton');
+        const input = document.getElementById('userInput');
+        const response = document.getElementById('response');
+
+        // ฟังก์ชันตรวจสอบข้อความ
+        button.addEventListener('click', function () {
+    const userInput = input.value.trim().toLowerCase();
+    const answer = responses[userInput];
+
+    const responseImage = document.getElementById('responseImage');
+
+    // เคลียร์ค่าก่อน
+    response.textContent = "";
+    response.id = "";
+    responseImage.style.display = "none";
+    responseImage.src = "";
+
+    // ถ้าผู้ใช้พิมพ์ว่า "รูปภาพสูตร"
+    if (userInput === "รูปภาพสูตร") {
+        response.id = "correct";
+        responseImage.src = "py/speedmove.jpg";
+        responseImage.style.display = "block";
+    }
+    // ถ้าเป็นข้อความใน responses ปกติ
+    else if (answer) {
+        response.textContent = answer;
+        response.id = "correct";
+    }
+    // ถ้าคำไม่ตรงกับอะไรเลย
+    else {
+        response.textContent = "ข้อความไม่ถูกต้อง!";
+        response.id = "";
+    }
+
+    input.value = "";
+});
+
+
+
+
+        
+        
+    </script>
+</body>
+</html>
